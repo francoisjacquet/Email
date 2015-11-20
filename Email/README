@@ -15,7 +15,7 @@ DESCRIPTION
 This module extends the following modules:
 
 - Grades: Lets you email Report Cards to Parents.
-- Discipline: Lets you email Discipline Log to Parents.
+- Discipline: Lets you email Discipline Logs to Parents.
 - Student Billing: Lets you email Student Balances to Parents.
 
 The email body is customizable.
