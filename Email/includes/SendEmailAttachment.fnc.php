@@ -38,7 +38,7 @@ function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null,
 	$phpmailer->ClearReplyTos();
 
 	//FJ add email headers
-	if (empty($from))
+	if ( empty( $from ) )
 	{
 		// Get the site domain and get rid of www.
 		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
@@ -55,10 +55,17 @@ function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null,
 			$programname = 'rosariosis';
 
 		$from = $programname . '@' . $sitename;
+
+		$fromname = Config( 'NAME' );
 	}
 
 	// Set Email address to send from.
 	$phpmailer->From = $from;
+
+	if ( $fromname )
+	{
+		$phpmailer->FromName = $fromname;
+	}
 
 	// Set destination addresses
 	if ( !is_array( $to ) )
