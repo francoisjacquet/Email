@@ -79,7 +79,7 @@ if ( isset( $_REQUEST['modfunc'] )
 
 		$student_RET = GetStuList( $extra );
 
-		echo '<pre>'; var_dump($student_RET); echo '</pre>';
+		//echo '<pre>'; var_dump($student_RET); echo '</pre>';
 
 		$error_email_list = array();
 
@@ -89,9 +89,9 @@ if ( isset( $_REQUEST['modfunc'] )
 
 			$from = null;
 
-			if ( Staff( 'EMAIL' ) )
+			if ( filter_var( User( 'EMAIL' ), FILTER_VALIDATE_EMAIL ) )
 			{
-				$from = Staff( 'EMAIL' );
+				$from = User( 'EMAIL' );
 			}
 
 			// Substitutions
@@ -108,7 +108,7 @@ if ( isset( $_REQUEST['modfunc'] )
 					$student['LAST_NAME'],
 					SchoolInfo( 'TITLE' ),
 					$student['PARENT_NAME'],
-					$student['BALANCE'],
+					strip_tags( $student['BALANCE'] ), // remove <!-- 0 --> comment
 				),
 				$message
 			);

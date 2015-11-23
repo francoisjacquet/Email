@@ -68,7 +68,10 @@ if ( isset( $_REQUEST['modfunc'] )
 
 		$student_RET = GetStuList( $extra );
 
-		echo '<pre>'; var_dump($student_RET); echo '</pre>';
+		//echo '<pre>'; var_dump($student_RET); echo '</pre>';
+
+		// Generate and get Discipline Logs
+		$referral_logs = ReferralLogsGenerate( $extra );
 
 		$error_email_list = array();
 
@@ -78,16 +81,16 @@ if ( isset( $_REQUEST['modfunc'] )
 			'mode' => 3 // Save
 		);
 
-		foreach ( (array)$student_RET as $student )
+		foreach ( (array)$student_RET as $student_id => $student )
 		{			
 			$to = $student['PARENT_EMAIL'];
 
 			$from = $cc = null;
 
 			//FJ send email from rosariosis@[domain] or Staff email
-			if ( Staff( 'EMAIL' ) )
+			if ( filter_var( User( 'EMAIL' ), FILTER_VALIDATE_EMAIL ) )
 			{
-				$from = Staff( 'EMAIL' );
+				$from = User( 'EMAIL' );
 			}
 
 			// Substitutions
@@ -107,15 +110,12 @@ if ( isset( $_REQUEST['modfunc'] )
 				$message
 			);
 
-			// Generate and get Discipline Log PDF
-			$referral_log = ReferralLogGenerate( $student_id );
-
-			if ( $referral_log )
+			if ( isset( $referral_logs[$student_id] ) )
 			{
 				// Generate PDF
 				$handle = PDFStart( $pdf_options );
 
-				echo $referral_log;
+				echo $referral_logs[$student_id];
 
 				$pdf_file = PDFStop( $handle );
 				
@@ -147,7 +147,12 @@ if ( isset( $_REQUEST['modfunc'] )
 			);
 		}
 
-		$note[] = dgettext( 'Email', 'The discpline logs have been sent.' );
+		if ( empty( $referral_logs ) )
+		{
+			$error[] = _( 'No Students were found.' );
+		}
+		else
+			$note[] = dgettext( 'Email', 'The discpline logs have been sent.' );
 	}
 	// No Users selected
 	else
@@ -173,7 +178,7 @@ if ( empty( $_REQUEST['modfunc'] )
 	// Open Form & Display Email options
 	if ( $_REQUEST['search_modfunc'] === 'list' )
 	{
-		echo '<form action="' . PreparePHPSelf(
+		echo '<form action="' . PreparePHP_SELF(
 				$_REQUEST,
 				array( 'search_modfunc' ),
 				array( 'modfunc' => 'save' )
@@ -225,6 +230,10 @@ if ( empty( $_REQUEST['modfunc'] )
 			<span class="legend-gray">' . _( 'Substitutions' ) . '</span></td></tr>';
 		
 		$extra['extra_header_left'] .= '</table>';
+
+		// Add Include in Discipline Log form
+		$extra['extra_header_left'] .= '<table>' . ReferralLogIncludeForm() . '</table>';
+
 	}
 
 	$extra['SELECT'] = ",s.STUDENT_ID AS CHECKBOX";
@@ -267,9 +276,6 @@ if ( empty( $_REQUEST['modfunc'] )
 
 	// No link for Student's name
 	$extra['link'] = array( 'FULL_NAME' => false );
-
-	// Add Include in Discipline Log form
-	$extra['second_col'] .= ReferralLogIncludeForm();
 
 	// Remove Current Student if any
 	$extra['new'] = true;

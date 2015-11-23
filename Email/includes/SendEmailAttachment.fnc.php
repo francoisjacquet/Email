@@ -24,9 +24,9 @@ function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null,
 	// (Re)create it, if it's gone missing
 	if ( ! ( $phpmailer instanceof PHPMailer ) )
 	{
-		require_once 'classes/PHPMailer/class-phpmailer.php';
+		require_once 'classes/PHPMailer/class.phpmailer.php';
 
-		require_once 'classes/PHPMailer/class-smtp.php';
+		require_once 'classes/PHPMailer/class.smtp.php';
 
 		$phpmailer = new PHPMailer( true );
 	}

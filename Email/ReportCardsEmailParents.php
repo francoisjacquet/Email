@@ -75,7 +75,7 @@ if ( isset( $_REQUEST['modfunc'] )
 
 			$student_RET = GetStuList( $extra );
 
-			echo '<pre>'; var_dump($student_RET); echo '</pre>';
+			//echo '<pre>'; var_dump($student_RET); echo '</pre>';
 
 			$error_email_list = array();
 
@@ -92,9 +92,9 @@ if ( isset( $_REQUEST['modfunc'] )
 				$from = $cc = null;
 
 				//FJ send email from rosariosis@[domain] or Staff email
-				if ( Staff( 'EMAIL' ) )
+				if ( filter_var( User( 'EMAIL' ), FILTER_VALIDATE_EMAIL ) )
 				{
-					$from = Staff( 'EMAIL' );
+					$from = User( 'EMAIL' );
 				}
 
 				// Substitutions
@@ -183,7 +183,7 @@ if ( empty( $_REQUEST['modfunc'] )
 	// Open Form & Display Email options
 	if ( $_REQUEST['search_modfunc'] === 'list' )
 	{
-		echo '<form action="' . PreparePHPSelf(
+		echo '<form action="' . PreparePHP_SELF(
 				$_REQUEST,
 				array( 'search_modfunc' ),
 				array( 'modfunc' => 'save' )
@@ -235,6 +235,10 @@ if ( empty( $_REQUEST['modfunc'] )
 			<span class="legend-gray">' . _( 'Substitutions' ) . '</span></td></tr>';
 		
 		$extra['extra_header_left'] .= '</table>';
+
+		// Add Include in Discipline Log form
+		$extra['extra_header_left'] .= ReportCardsIncludeForm();
+
 	}
 
 	$extra['SELECT'] = ",s.STUDENT_ID AS CHECKBOX";
@@ -253,7 +257,7 @@ if ( empty( $_REQUEST['modfunc'] )
 		AND st.SYEAR='" . UserSyear() . "' LIMIT 1) AS PARENT_EMAIL";
 
 	// ORDER BY Name
-	$extra['ORDER_BY'] = 'REFERRALS, FULL_NAME';
+	$extra['ORDER_BY'] = 'FULL_NAME';
 
 	// Call functions to format Columns
 	$extra['functions'] = array( 'CHECKBOX' => '_makeChooseCheckbox' );
@@ -270,9 +274,6 @@ if ( empty( $_REQUEST['modfunc'] )
 
 	// No link for Student's name
 	$extra['link'] = array( 'FULL_NAME' => false );
-
-	// Add Include in Discipline Log form
-	$extra['second_col'] .= ReportCardsIncludeForm();
 
 	// Remove Current Student if any
 	$extra['new'] = true;
