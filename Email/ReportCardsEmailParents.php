@@ -45,6 +45,8 @@ if ( isset( $_REQUEST['modfunc'] )
 	if ( isset( $_REQUEST['mp_arr'] )
 		&& isset( $_REQUEST['student'] ) )
 	{
+		$_REQUEST['_ROSARIO_PDF'] = 'true';
+
 		// Generate and get Report Cards HTML
 		$report_cards = ReportCardsGenerate( $_REQUEST['student'], $_REQUEST['mp_arr'] );
 
