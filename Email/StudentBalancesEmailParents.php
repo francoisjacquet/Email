@@ -45,8 +45,6 @@ if ( isset( $_REQUEST['modfunc'] )
 		//FJ add SendEmail function
 		require_once 'ProgramFunctions/SendEmail.fnc.php';
 
-		$subject = dgettext( 'Email', 'Student Balance' );
-
 		$st_list = '\'' . implode( '\',\'', $_REQUEST['student'] ) . '\'';
 
 		// SELECT Staff details
@@ -94,6 +92,9 @@ if ( isset( $_REQUEST['modfunc'] )
 				$from = User( 'EMAIL' );
 			}
 
+			$subject = dgettext( 'Email', 'Student Balance' ) .
+				' - ' . $student['FIRST_NAME'] . ' ' . $student['LAST_NAME'];
+
 			// Substitutions
 			$msg = str_replace(
 				array(
@@ -112,7 +113,7 @@ if ( isset( $_REQUEST['modfunc'] )
 				),
 				$message
 			);
-			
+
 			//FJ send email from rosariosis@[domain] or Staff email
 			$result = SendEmail( $to, $subject, $msg, $from );
 

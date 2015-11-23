@@ -56,8 +56,6 @@ if ( isset( $_REQUEST['modfunc'] )
 			//FJ add SendEmailAttachment function
 			require_once 'modules/Email/includes/SendEmailAttachment.fnc.php';
 
-			$subject = _( 'Report Cards' );
-
 			$st_list = '\'' . implode( '\',\'', $_REQUEST['student'] ) . '\'';
 
 			// SELECT Staff details
@@ -98,6 +96,9 @@ if ( isset( $_REQUEST['modfunc'] )
 				{
 					$from = User( 'EMAIL' );
 				}
+
+				$subject = _( 'Report Cards' ) .
+					' - ' . $student['FIRST_NAME'] . ' ' . $student['LAST_NAME'];
 
 				// Substitutions
 				$msg = str_replace(
