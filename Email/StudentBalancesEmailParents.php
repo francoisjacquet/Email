@@ -14,7 +14,7 @@ if ( isset( $_REQUEST['modfunc'] )
 		//FJ add Template
 		$template_update = DBGet( DBQuery( "SELECT 1
 			FROM TEMPLATES
-			WHERE MODNAME = 'Email/StudentBalancesEmailParents.php'
+			WHERE MODNAME = '" . $_REQUEST['modname'] . "'
 			AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" ) );
 
 		// INSERT new template
@@ -26,7 +26,7 @@ if ( isset( $_REQUEST['modfunc'] )
 					TEMPLATE
 				)
 				VALUES (
-					'Email/StudentBalancesEmailParents.php',
+					'" . $_REQUEST['modname'] . "',
 					'" . User( 'STAFF_ID' ) . "',
 					'" . $_REQUEST['inputstudentbalancesemailtext'] . "'
 				)" );
@@ -36,7 +36,7 @@ if ( isset( $_REQUEST['modfunc'] )
 		{
 			DBQuery( "UPDATE TEMPLATES
 				SET TEMPLATE = '" . $_REQUEST['inputstudentbalancesemailtext'] . "'
-				WHERE MODNAME = 'Email/StudentBalancesEmailParents.php'
+				WHERE MODNAME = '" . $_REQUEST['modname'] . "'
 				AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" );
 		}
 
