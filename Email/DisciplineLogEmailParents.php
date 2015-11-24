@@ -11,39 +11,39 @@ if ( isset( $_REQUEST['modfunc'] )
 	&& $_REQUEST['modfunc'] === 'save'
 	&& AllowEdit() )
 {
-	//FJ add Template
-	$template_update = DBGet( DBQuery( "SELECT 1
-		FROM TEMPLATES
-		WHERE MODNAME = 'Email/DiscplineLogEmailParents.php'
-		AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" ) );
-
-	// INSERT new template
-	if ( !$template_update )
+	if ( isset( $_POST['student'] ) )
 	{
-		DBQuery( "INSERT INTO TEMPLATES (
-				MODNAME,
-				STAFF_ID,
-				TEMPLATE
-			)
-			VALUES (
-				'Email/DiscplineLogEmailParents.php',
-				'" . User( 'STAFF_ID' ) . "',
-				'" . $_REQUEST['inputdisciplinelogemailtext'] . "'
-			)" );
-	}
-	// UPDATE template
-	else
-	{
-		DBQuery( "UPDATE TEMPLATES
-			SET TEMPLATE = '" . $_REQUEST['inputdisciplinelogemailtext'] . "'
+		//FJ add Template
+		$template_update = DBGet( DBQuery( "SELECT 1
+			FROM TEMPLATES
 			WHERE MODNAME = 'Email/DiscplineLogEmailParents.php'
-			AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" );
-	}
+			AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" ) );
 
-	$message = str_replace( "''", "'", $_REQUEST['inputdisciplinelogemailtext'] );
+		// INSERT new template
+		if ( !$template_update )
+		{
+			DBQuery( "INSERT INTO TEMPLATES (
+					MODNAME,
+					STAFF_ID,
+					TEMPLATE
+				)
+				VALUES (
+					'Email/DiscplineLogEmailParents.php',
+					'" . User( 'STAFF_ID' ) . "',
+					'" . $_REQUEST['inputdisciplinelogemailtext'] . "'
+				)" );
+		}
+		// UPDATE template
+		else
+		{
+			DBQuery( "UPDATE TEMPLATES
+				SET TEMPLATE = '" . $_REQUEST['inputdisciplinelogemailtext'] . "'
+				WHERE MODNAME = 'Email/DiscplineLogEmailParents.php'
+				AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" );
+		}
 
-	if ( count( $_REQUEST['student'] ) )
-	{
+		$message = str_replace( "''", "'", $_REQUEST['inputdisciplinelogemailtext'] );
+
 		//FJ add SendEmailAttachment function
 		require_once 'modules/Email/includes/SendEmailAttachment.fnc.php';
 
@@ -91,7 +91,7 @@ if ( isset( $_REQUEST['modfunc'] )
 				$from = User( 'EMAIL' );
 			}
 
-			$subject = dgettext( 'Email', 'Discpline Log' ) .
+			$subject = _( 'Discpline Log' ) .
 				' - ' . $student['FIRST_NAME'] . ' ' . $student['LAST_NAME'];
 
 			// Substitutions
@@ -199,7 +199,7 @@ if ( empty( $_REQUEST['modfunc'] )
 		// email Template Textarea
 		$extra['extra_header_left'] .= '<tr class="st"><td>' .
 			'<label><textarea name="inputdisciplinelogemailtext" cols="97" rows="5">' . $template . '</textarea>
-			<br /><span class="legend-gray">' . dgettext( 'Email', 'Discpline Log' ) . ' - ' . _( 'Email Text' ) . '</span></label>
+			<br /><span class="legend-gray">' . _( 'Discpline Log' ) . ' - ' . _( 'Email Text' ) . '</span></label>
 			</td></tr>';
 
 		// Spacing

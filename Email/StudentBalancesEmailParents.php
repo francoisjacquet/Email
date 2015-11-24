@@ -9,39 +9,39 @@ if ( isset( $_REQUEST['modfunc'] )
 	&& $_REQUEST['modfunc'] === 'save'
 	&& AllowEdit() )
 {
-	//FJ add Template
-	$template_update = DBGet( DBQuery( "SELECT 1
-		FROM TEMPLATES
-		WHERE MODNAME = 'Email/StudentBalancesEmailParents.php'
-		AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" ) );
-
-	// INSERT new template
-	if ( !$template_update )
+	if ( isset( $_POST['student'] ) )
 	{
-		DBQuery( "INSERT INTO TEMPLATES (
-				MODNAME,
-				STAFF_ID,
-				TEMPLATE
-			)
-			VALUES (
-				'Email/StudentBalancesEmailParents.php',
-				'" . User( 'STAFF_ID' ) . "',
-				'" . $_REQUEST['inputstudentbalancesemailtext'] . "'
-			)" );
-	}
-	// UPDATE template
-	else
-	{
-		DBQuery( "UPDATE TEMPLATES
-			SET TEMPLATE = '" . $_REQUEST['inputstudentbalancesemailtext'] . "'
+		//FJ add Template
+		$template_update = DBGet( DBQuery( "SELECT 1
+			FROM TEMPLATES
 			WHERE MODNAME = 'Email/StudentBalancesEmailParents.php'
-			AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" );
-	}
+			AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" ) );
 
-	$message = str_replace( "''", "'", $_REQUEST['inputstudentbalancesemailtext'] );
+		// INSERT new template
+		if ( !$template_update )
+		{
+			DBQuery( "INSERT INTO TEMPLATES (
+					MODNAME,
+					STAFF_ID,
+					TEMPLATE
+				)
+				VALUES (
+					'Email/StudentBalancesEmailParents.php',
+					'" . User( 'STAFF_ID' ) . "',
+					'" . $_REQUEST['inputstudentbalancesemailtext'] . "'
+				)" );
+		}
+		// UPDATE template
+		else
+		{
+			DBQuery( "UPDATE TEMPLATES
+				SET TEMPLATE = '" . $_REQUEST['inputstudentbalancesemailtext'] . "'
+				WHERE MODNAME = 'Email/StudentBalancesEmailParents.php'
+				AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" );
+		}
 
-	if ( count( $_REQUEST['student'] ) )
-	{
+		$message = str_replace( "''", "'", $_REQUEST['inputstudentbalancesemailtext'] );
+
 		//FJ add SendEmail function
 		require_once 'ProgramFunctions/SendEmail.fnc.php';
 
@@ -202,7 +202,7 @@ if ( empty( $_REQUEST['modfunc'] )
 			<td>&nbsp;</td>';
 
 		$extra['extra_header_left'] .= '<td>__BALANCE__</td>
-			<td>= ' . _( 'Student Balance' ) . '</td>';
+			<td>= ' . dgettext( 'Email', 'Student Balance' ) . '</td>';
 
 		$extra['extra_header_left'] .= '</tr></table>
 			<span class="legend-gray">' . _( 'Substitutions' ) . '</span></td></tr>';

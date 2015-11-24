@@ -11,40 +11,40 @@ if ( isset( $_REQUEST['modfunc'] )
 	&& $_REQUEST['modfunc'] === 'save'
 	&& AllowEdit() )
 {
-	//FJ add Template
-	$template_update = DBGet( DBQuery( "SELECT 1
-		FROM TEMPLATES
-		WHERE MODNAME = 'Email/ReportCardsEmailParents.php'
-		AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" ) );
-
-	// INSERT new template
-	if ( !$template_update )
+	if ( isset( $_POST['mp_arr'] )
+		&& isset( $_POST['student'] ) )
 	{
-		DBQuery( "INSERT INTO TEMPLATES (
-				MODNAME,
-				STAFF_ID,
-				TEMPLATE
-			)
-			VALUES (
-				'Email/ReportCardsEmailParents.php',
-				'" . User( 'STAFF_ID' ) . "',
-				'" . $_REQUEST['inputreportcardsemailtext'] . "'
-			)" );
-	}
-	// UPDATE template
-	else
-	{
-		DBQuery( "UPDATE TEMPLATES
-			SET TEMPLATE = '" . $_REQUEST['inputreportcardsemailtext'] . "'
+		//FJ add Template
+		$template_update = DBGet( DBQuery( "SELECT 1
+			FROM TEMPLATES
 			WHERE MODNAME = 'Email/ReportCardsEmailParents.php'
-			AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" );
-	}
+			AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" ) );
 
-	$message = str_replace( "''", "'", $_REQUEST['inputreportcardsemailtext'] );
+		// INSERT new template
+		if ( !$template_update )
+		{
+			DBQuery( "INSERT INTO TEMPLATES (
+					MODNAME,
+					STAFF_ID,
+					TEMPLATE
+				)
+				VALUES (
+					'Email/ReportCardsEmailParents.php',
+					'" . User( 'STAFF_ID' ) . "',
+					'" . $_REQUEST['inputreportcardsemailtext'] . "'
+				)" );
+		}
+		// UPDATE template
+		else
+		{
+			DBQuery( "UPDATE TEMPLATES
+				SET TEMPLATE = '" . $_REQUEST['inputreportcardsemailtext'] . "'
+				WHERE MODNAME = 'Email/ReportCardsEmailParents.php'
+				AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" );
+		}
 
-	if ( isset( $_REQUEST['mp_arr'] )
-		&& isset( $_REQUEST['student'] ) )
-	{
+		$message = str_replace( "''", "'", $_REQUEST['inputreportcardsemailtext'] );
+
 		$_REQUEST['_ROSARIO_PDF'] = 'true';
 
 		// Generate and get Report Cards HTML
