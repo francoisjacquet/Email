@@ -3,12 +3,14 @@
 /**
  * Send Email with Attachment
  *
+ * @example SendEmailAttachment( $to, $subject, $msg, $from, $cc, array( array( $pdf_file, $pdf_name ) ) );
+ *
  * @uses PHPMailer class
  *
  * @param string|array $to          Recipients, array or comma separated list of emails
  * @param string       $from        if empty, defaults to rosariosis@[yourserverdomain]
  * @param string|array $cc          Carbon Copy, array or comma separated list of emails
- * @param array        $attachments Array of file paths
+ * @param array        $attachments Array of file paths, or Array of Attachments (file path, file name)
  *
  * @return boolean true if email sent, or false
  */
@@ -148,7 +150,12 @@ function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null,
 		{
 			try
 			{
-				$phpmailer->AddAttachment( $attachment );
+				if ( is_array( $attachment ) )
+				{
+					$phpmailer->AddAttachment( $attachment[0], $attachment[1] );
+				}
+				else
+					$phpmailer->AddAttachment( $attachment );
 			}
 			catch ( phpmailerException $e )
 			{

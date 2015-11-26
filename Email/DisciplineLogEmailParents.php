@@ -92,7 +92,7 @@ if ( isset( $_REQUEST['modfunc'] )
 			}
 
 			$subject = _( 'Discpline Log' ) .
-				' - ' . $student['FIRST_NAME'] . ' ' . $student['LAST_NAME'];
+				' - ' . $student['FULL_NAME'];
 
 			// Substitutions
 			$msg = str_replace(
@@ -119,6 +119,8 @@ if ( isset( $_REQUEST['modfunc'] )
 				echo $referral_logs[$student_id];
 
 				$pdf_file = PDFStop( $handle );
+
+				$pdf_name = $subject . '.pdf'; 
 				
 				// Send Email
 				$result = SendEmailAttachment(
@@ -127,7 +129,7 @@ if ( isset( $_REQUEST['modfunc'] )
 					$msg,
 					$from,
 					$cc,
-					array( $pdf_file )
+					array( array( $pdf_file, $pdf_name ) )
 				);
 
 				// Delete PDF file
