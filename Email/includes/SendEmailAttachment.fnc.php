@@ -3,7 +3,7 @@
 /**
  * Send Email with Attachment
  *
- * @example SendEmailAttachment( $to, $subject, $msg, $from, $cc, array( array( $pdf_file, $pdf_name ) ) );
+ * @example SendEmailAttachment( $to, $subject, $msg, 'Foo <bar@from.address>', $cc, array( array( $pdf_file, $pdf_name ) ) );
  *
  * @uses PHPMailer class
  *
@@ -56,18 +56,41 @@ function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null,
 		if ( !$programname )
 			$programname = 'rosariosis';
 
-		$from = $programname . '@' . $sitename;
+		$from_email = $programname . '@' . $sitename;
+	}
+	else
+	{
+		// Break $from into name and address parts if in the format "Foo <bar@baz.com>"
+		$bracket_pos = strpos( $from, '<' );
 
-		$fromname = Config( 'NAME' );
+		if ( $bracket_pos !== false ) {
+			// Text before the bracketed email is the "From" name.
+			if ( $bracket_pos > 0 ) {
+				$from_name = substr( $from, 0, $bracket_pos - 1 );
+				$from_name = str_replace( '"', '', $from_name );
+				$from_name = trim( $from_name );
+			}
+
+			$from_email = substr( $from, $bracket_pos + 1 );
+			$from_email = str_replace( '>', '', $from_email );
+			$from_email = trim( $from_email );
+
+		// Avoid setting an empty $from_email.
+		} elseif ( '' !== trim( $from ) ) {
+
+			$from_email = trim( $from );
+		}
+	}
+
+	if ( !isset( $from_name ) )
+	{
+		$from_name = Config( 'NAME' );
 	}
 
 	// Set Email address to send from.
-	$phpmailer->From = $from;
+	$phpmailer->From = $from_email;
 
-	if ( $fromname )
-	{
-		$phpmailer->FromName = $fromname;
-	}
+	$phpmailer->FromName = $from_name;
 
 	// Set destination addresses
 	if ( !is_array( $to ) )

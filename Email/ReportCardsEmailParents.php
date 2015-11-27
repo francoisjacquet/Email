@@ -94,7 +94,7 @@ if ( isset( $_REQUEST['modfunc'] )
 				//FJ send email from rosariosis@[domain] or Staff email
 				if ( filter_var( User( 'EMAIL' ), FILTER_VALIDATE_EMAIL ) )
 				{
-					$from = User( 'EMAIL' );
+					$from = User( 'NAME' ) . ' <' . User( 'EMAIL' ) . '>';
 				}
 
 				$subject = _( 'Report Cards' ) .

@@ -89,7 +89,7 @@ if ( isset( $_REQUEST['modfunc'] )
 
 			if ( filter_var( User( 'EMAIL' ), FILTER_VALIDATE_EMAIL ) )
 			{
-				$from = User( 'EMAIL' );
+				$from = User( 'NAME' ) . ' <' . User( 'EMAIL' ) . '>';
 			}
 
 			$subject = dgettext( 'Email', 'Student Balance' ) .
