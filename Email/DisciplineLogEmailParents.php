@@ -1,26 +1,29 @@
 <?php
-
-// This is a quick hack to email the discpline log to parents
+/**
+ * Email Discipline Log to Parents
+ *
+ * @package Email module
+ */
 
 require_once 'modules/Discipline/includes/ReferralLog.fnc.php';
 
 DrawHeader( ProgramTitle() );
 
-// Send emails
+// Send emails.
 if ( isset( $_REQUEST['modfunc'] )
 	&& $_REQUEST['modfunc'] === 'save'
 	&& AllowEdit() )
 {
 	if ( isset( $_POST['student'] ) )
 	{
-		//FJ add Template
+		// FJ add Template.
 		$template_update = DBGet( DBQuery( "SELECT 1
 			FROM TEMPLATES
 			WHERE MODNAME = '" . $_REQUEST['modname'] . "'
 			AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" ) );
 
-		// INSERT new template
-		if ( !$template_update )
+		// INSERT new template.
+		if ( ! $template_update )
 		{
 			DBQuery( "INSERT INTO TEMPLATES (
 					MODNAME,
@@ -33,7 +36,7 @@ if ( isset( $_REQUEST['modfunc'] )
 					'" . $_REQUEST['inputdisciplinelogemailtext'] . "'
 				)" );
 		}
-		// UPDATE template
+		// UPDATE template.
 		else
 		{
 			DBQuery( "UPDATE TEMPLATES
@@ -44,12 +47,12 @@ if ( isset( $_REQUEST['modfunc'] )
 
 		$message = str_replace( "''", "'", $_REQUEST['inputdisciplinelogemailtext'] );
 
-		//FJ add SendEmailAttachment function
+		// FJ add SendEmailAttachment function.
 		require_once 'modules/Email/includes/SendEmailAttachment.fnc.php';
 
 		$st_list = '\'' . implode( '\',\'', $_REQUEST['student'] ) . '\'';
 
-		// SELECT Staff details
+		// SELECT Staff details.
 		$extra['SELECT'] .= ",(SELECT st.FIRST_NAME||' '||st.LAST_NAME
 			FROM STAFF st,STUDENTS_JOIN_USERS sju
 			WHERE sju.STAFF_ID=st.STAFF_ID
@@ -66,9 +69,9 @@ if ( isset( $_REQUEST['modfunc'] )
 
 		$student_RET = GetStuList( $extra );
 
-		//echo '<pre>'; var_dump($student_RET); echo '</pre>';
+		// echo '<pre>'; var_dump($student_RET); echo '</pre>';
 
-		// Generate and get Discipline Logs
+		// Generate and get Discipline Logs.
 		$referral_logs = ReferralLogsGenerate( $extra );
 
 		$error_email_list = array();
@@ -76,16 +79,16 @@ if ( isset( $_REQUEST['modfunc'] )
 		$pdf_options = array(
 			'css' => true,
 			'margins' => array(),
-			'mode' => 3 // Save
+			'mode' => 3, // Save.
 		);
 
-		foreach ( (array)$student_RET as $student_id => $student )
-		{			
+		foreach ( (array) $student_RET as $student_id => $student )
+		{
 			$to = $student['PARENT_EMAIL'];
 
 			$from = $cc = null;
 
-			//FJ send email from rosariosis@[domain] or Staff email
+			// FJ send email from rosariosis@[domain] or Staff email.
 			if ( filter_var( User( 'EMAIL' ), FILTER_VALIDATE_EMAIL ) )
 			{
 				$from = User( 'NAME' ) . ' <' . User( 'EMAIL' ) . '>';
@@ -94,7 +97,7 @@ if ( isset( $_REQUEST['modfunc'] )
 			$subject = _( 'Discpline Log' ) .
 				' - ' . $student['FULL_NAME'];
 
-			// Substitutions
+			// Substitutions.
 			$msg = str_replace(
 				array(
 					'__FIRST_NAME__',
@@ -111,18 +114,18 @@ if ( isset( $_REQUEST['modfunc'] )
 				$message
 			);
 
-			if ( isset( $referral_logs[$student_id] ) )
+			if ( isset( $referral_logs[ $student_id ] ) )
 			{
-				// Generate PDF
+				// Generate PDF.
 				$handle = PDFStart( $pdf_options );
 
-				echo $referral_logs[$student_id];
+				echo $referral_logs[ $student_id ];
 
 				$pdf_file = PDFStop( $handle );
 
-				$pdf_name = $subject . '.pdf'; 
-				
-				// Send Email
+				$pdf_name = $subject . '.pdf';
+
+				// Send Email.
 				$result = SendEmailAttachment(
 					$to,
 					$subject,
@@ -132,15 +135,15 @@ if ( isset( $_REQUEST['modfunc'] )
 					array( array( $pdf_file, $pdf_name ) )
 				);
 
-				// Delete PDF file
+				// Delete PDF file.
 				unlink( $pdf_file );
 
-				if ( !$result )
+				if ( ! $result )
 					$error_email_list[] = $student['PARENT_NAME'] . ' (' . $student['PARENT_EMAIL'] . ')';
 			}
 		}
 
-		if ( !empty( $error_email_list ) )
+		if ( ! empty( $error_email_list ) )
 		{
 			$error_email_list = implode( ', ', $error_email_list );
 
@@ -157,7 +160,7 @@ if ( isset( $_REQUEST['modfunc'] )
 		else
 			$note[] = dgettext( 'Email', 'The discpline logs have been sent.' );
 	}
-	// No Users selected
+	// No Users selected.
 	else
 		$error[] = _( 'You must choose at least one student.' );
 
@@ -166,48 +169,52 @@ if ( isset( $_REQUEST['modfunc'] )
 	unset( $_REQUEST['modfunc'] );
 }
 
-// Display errors if any
+// Display errors if any.
 if ( isset( $error ) )
+{
 	echo ErrorMessage( $error );
+}
 
-// Display notes if any
+// Display notes if any.
 if ( isset( $note ) )
+{
 	echo ErrorMessage( $note, 'note' );
+}
 
-// Display Search screen or Student list
+// Display Search screen or Student list.
 if ( empty( $_REQUEST['modfunc'] )
 	|| $_REQUEST['search_modfunc'] === 'list' )
 {
-	// Open Form & Display Email options
+	// Open Form & Display Email options.
 	if ( $_REQUEST['search_modfunc'] === 'list' )
 	{
 		echo '<form action="' . PreparePHP_SELF(
-				$_REQUEST,
-				array( 'search_modfunc' ),
-				array( 'modfunc' => 'save' )
-			) . '" method="POST">';
+			$_REQUEST,
+			array( 'search_modfunc' ),
+			array( 'modfunc' => 'save' )
+		) . '" method="POST">';
 
 		$extra['header_right'] = SubmitButton( dgettext( 'Email', 'Send Log to Selected Parents' ) );
-		
+
 		$extra['extra_header_left'] = '<table>';
 
-		//FJ add Template
+		// FJ add Template.
 		$templates = DBGet( DBQuery( "SELECT TEMPLATE, STAFF_ID
 			FROM TEMPLATES WHERE MODNAME = '" . $_REQUEST['modname'] . "'
 			AND STAFF_ID IN (0,'" . User( 'STAFF_ID' ) . "')" ), array(), array( 'STAFF_ID' ) );
-		
+
 		$template = $templates[( isset( $templates[User( 'STAFF_ID' )] ) ? User( 'STAFF_ID' ) : 0 )][1]['TEMPLATE'];
 
-		// email Template Textarea
-		$extra['extra_header_left'] .= '<tr class="st"><td>' .
-			'<label><textarea name="inputdisciplinelogemailtext" cols="97" rows="5">' . $template . '</textarea>
+		// Email Template Textarea.
+		$extra['extra_header_left'] .= '<tr class="st"><td>
+			<label><textarea name="inputdisciplinelogemailtext" cols="97" rows="5">' . $template . '</textarea>
 			<br /><span class="legend-gray">' . _( 'Discpline Log' ) . ' - ' . _( 'Email Text' ) . '</span></label>
 			</td></tr>';
 
-		// Spacing
+		// Spacing.
 		$extra['extra_header_left'] .= '<tr><td>&nbsp;</td></tr>';
 
-		// Substitutions
+		// Substitutions.
 		$extra['extra_header_left'] .= '<tr class="st">
 			<td><table><tr class="st">';
 
@@ -231,17 +238,17 @@ if ( empty( $_REQUEST['modfunc'] )
 
 		$extra['extra_header_left'] .= '</tr></table>
 			<span class="legend-gray">' . _( 'Substitutions' ) . '</span></td></tr>';
-		
+
 		$extra['extra_header_left'] .= '</table>';
 
-		// Add Include in Discipline Log form
+		// Add Include in Discipline Log form.
 		$extra['extra_header_left'] .= '<table>' . ReferralLogIncludeForm() . '</table>';
 
 	}
 
 	$extra['SELECT'] = ",s.STUDENT_ID AS CHECKBOX";
 
-	// SELECT Staff details
+	// SELECT Staff details.
 	$extra['SELECT'] .= ",(SELECT st.FIRST_NAME||' '||st.LAST_NAME
 		FROM STAFF st,STUDENTS_JOIN_USERS sju
 		WHERE sju.STAFF_ID=st.STAFF_ID
@@ -254,42 +261,43 @@ if ( empty( $_REQUEST['modfunc'] )
 		AND s.STUDENT_ID=sju.STUDENT_ID
 		AND st.SYEAR='" . UserSyear() . "' LIMIT 1) AS PARENT_EMAIL";
 
-	// SELECT Number of Referrals
+	// SELECT Number of Referrals.
 	$extra['SELECT'] .= ',(SELECT COUNT(dr.ID)
 		FROM DISCIPLINE_REFERRALS dr
 		WHERE dr.STUDENT_ID=ssm.STUDENT_ID
 		AND dr.SYEAR=ssm.SYEAR) AS REFERRALS';
 
-	// ORDER BY Name
+	// ORDER BY Name.
 	$extra['ORDER_BY'] = 'REFERRALS, FULL_NAME';
 
-	// Call functions to format Columns
+	// Call functions to format Columns.
 	$extra['functions'] = array( 'CHECKBOX' => '_makeChooseCheckbox' );
 
-	// Columns Titles
+	// Columns Titles.
 	$extra['columns_before'] = array(
-		'CHECKBOX' => '</a><input type="checkbox" value="Y" name="controller" onclick="checkAll(this.form,this.form.controller.checked,\'student\');" /><A>'
+		'CHECKBOX' => '</a><input type="checkbox" value="Y" name="controller" onclick="checkAll(this.form,this.form.controller.checked,\'student\');" /><A>',
 	);
 
 	$extra['columns_after'] = array(
 		'REFERRALS' => _( 'Number of Referrals' ),
 		'PARENT_NAME' => _( 'Parent Name' ),
-		'PARENT_EMAIL' => _( 'Email' )
+		'PARENT_EMAIL' => _( 'Email' ),
 	);
 
-	// No link for Student's name
+	// No link for Student's name.
 	$extra['link'] = array( 'FULL_NAME' => false );
 
-	// Remove Current Student if any
+	// Remove Current Student if any.
 	$extra['new'] = true;
 
-	// Display Search screen or Search Students
+	// Display Search screen or Search Students.
 	Search( 'student_id', $extra );
 
-	// Submit & Close Form
+	// Submit & Close Form.
 	if ( $_REQUEST['search_modfunc'] === 'list' )
 	{
-		echo '<br /><div class="center">' . SubmitButton( dgettext( 'Email', 'Send Log to Selected Parents' ) ) . '</div>';
+		echo '<br /><div class="center">' .
+			SubmitButton( dgettext( 'Email', 'Send Log to Selected Parents' ) ) . '</div>';
 		echo '</form>';
 	}
 }
@@ -300,8 +308,8 @@ if ( empty( $_REQUEST['modfunc'] )
  *
  * Local function
  *
- * @param  string $value  STUDENT_ID value
- * @param  string $column 'CHECKBOX'
+ * @param  string $value  STUDENT_ID value.
+ * @param  string $column 'CHECKBOX'.
  *
  * @return string Checkbox or empty string if no Email or no Referrals
  */
@@ -309,7 +317,7 @@ function _makeChooseCheckbox( $value, $column )
 {
 	global $THIS_RET;
 
-	// If valid email & has Referrals
+	// If valid email & has Referrals.
 	if ( filter_var( $THIS_RET['PARENT_EMAIL'], FILTER_VALIDATE_EMAIL )
 		&& intval( $THIS_RET['REFERRALS'] ) > 0 )
 	{

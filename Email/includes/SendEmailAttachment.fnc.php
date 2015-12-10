@@ -1,4 +1,9 @@
 <?php
+/**
+ * Send Email Attachment function
+ *
+ * @package Email module
+ */
 
 /**
  * Send Email with Attachment
@@ -7,15 +12,17 @@
  *
  * @uses PHPMailer class
  *
- * @param string|array $to          Recipients, array or comma separated list of emails
- * @param string       $from        if empty, defaults to rosariosis@[yourserverdomain]
- * @param string|array $cc          Carbon Copy, array or comma separated list of emails
- * @param array        $attachments Array of file paths, or Array of Attachments (file path, file name)
+ * @param string|array $to          Recipients, array or comma separated list of emails.
+ * @param string       $subject     Subject.
+ * @param string       $message     Message.
+ * @param string       $from        if empty, defaults to rosariosis@[yourserverdomain].
+ * @param string|array $cc          Carbon Copy, array or comma separated list of emails.
+ * @param array        $attachments Array of file paths, or Array of Attachments (file path, file name).
  *
  * @return boolean true if email sent, or false
  */
 function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null, $attachments = array() )
-{	
+{
 	if ( ! is_array( $attachments ) )
 	{
 		$attachments = explode( "\n", str_replace( "\r\n", "\n", $attachments ) );
@@ -23,7 +30,7 @@ function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null,
 
 	global $phpmailer;
 
-	// (Re)create it, if it's gone missing
+	// (Re)create it, if it's gone missing.
 	if ( ! ( $phpmailer instanceof PHPMailer ) )
 	{
 		require_once 'classes/PHPMailer/class.phpmailer.php';
@@ -33,18 +40,20 @@ function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null,
 		$phpmailer = new PHPMailer( true );
 	}
 
-	// Empty out the values that may be set
+	// Empty out the values that may be set.
 	$phpmailer->ClearAllRecipients();
 	$phpmailer->ClearAttachments();
 	$phpmailer->ClearCustomHeaders();
 	$phpmailer->ClearReplyTos();
 
-	//FJ add email headers
+	// FJ add email headers.
 	if ( empty( $from ) )
 	{
 		// Get the site domain and get rid of www.
 		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
-		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
+
+		if ( substr( $sitename, 0, 4 ) == 'www.' )
+		{
 			$sitename = substr( $sitename, 4 );
 		}
 
@@ -53,19 +62,23 @@ function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null,
 			FILTER_SANITIZE_EMAIL
 		));
 
-		if ( !$programname )
+		if ( ! $programname )
+		{
 			$programname = 'rosariosis';
+		}
 
 		$from_email = $programname . '@' . $sitename;
 	}
 	else
 	{
-		// Break $from into name and address parts if in the format "Foo <bar@baz.com>"
+		// Break $from into name and address parts if in the format "Foo <bar@baz.com>".
 		$bracket_pos = strpos( $from, '<' );
 
-		if ( $bracket_pos !== false ) {
+		if ( $bracket_pos !== false )
+		{
 			// Text before the bracketed email is the "From" name.
-			if ( $bracket_pos > 0 ) {
+			if ( $bracket_pos > 0 )
+			{
 				$from_name = substr( $from, 0, $bracket_pos - 1 );
 				$from_name = str_replace( '"', '', $from_name );
 				$from_name = trim( $from_name );
@@ -74,15 +87,16 @@ function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null,
 			$from_email = substr( $from, $bracket_pos + 1 );
 			$from_email = str_replace( '>', '', $from_email );
 			$from_email = trim( $from_email );
-
+		}
 		// Avoid setting an empty $from_email.
-		} elseif ( '' !== trim( $from ) ) {
+		elseif ( '' !== trim( $from ) )
+		{
 
 			$from_email = trim( $from );
 		}
 	}
 
-	if ( !isset( $from_name ) )
+	if ( ! isset( $from_name ) )
 	{
 		$from_name = Config( 'NAME' );
 	}
@@ -92,15 +106,17 @@ function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null,
 
 	$phpmailer->FromName = $from_name;
 
-	// Set destination addresses
-	if ( !is_array( $to ) )
+	// Set destination addresses.
+	if ( ! is_array( $to ) )
+	{
 		$to = explode( ',', $to );
+	}
 
 	foreach ( (array) $to as $recipient )
 	{
 		try
 		{
-			// Break $recipient into name and address parts if in the format "Foo <bar@baz.com>"
+			// Break $recipient into name and address parts if in the format "Foo <bar@baz.com>".
 			$recipient_name = '';
 
 			if ( preg_match( '/(.*)<(.+)>/', $recipient, $matches ) )
@@ -120,25 +136,27 @@ function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null,
 		}
 	}
 
-	//append Program Name to subject
+	// Append Program Name to subject.
 	$subject = Config( 'NAME' ) . ' - ' . $subject;
 
-	// Set mail's subject and body
+	// Set mail's subject and body.
 	$phpmailer->Subject = $subject;
 
 	$phpmailer->Body    = $message;
 
-	// Add any CC and BCC recipients
-	if ( !is_array( $cc ) )
+	// Add any CC and BCC recipients.
+	if ( ! is_array( $cc ) )
+	{
 		$cc = explode( ',', $cc );
+	}
 
-	if ( !empty( $cc ) )
+	if ( ! empty( $cc ) )
 	{
 		foreach ( (array) $cc as $recipient )
 		{
 			try
 			{
-				// Break $recipient into name and address parts if in the format "Foo <bar@baz.com>"
+				// Break $recipient into name and address parts if in the format "Foo <bar@baz.com>".
 				$recipient_name = '';
 
 				if ( preg_match( '/(.*)<(.+)>/', $recipient, $matches ) )
@@ -159,17 +177,17 @@ function SendEmailAttachment( $to, $subject, $message, $from = null, $cc = null,
 		}
 	}
 
-	// Set to use PHP's mail()
+	// Set to use PHP's mail().
 	$phpmailer->IsMail();
 
-	// Set Content-Type and charset
-	$phpmailer->ContentType = 'text/plain'; //TODO detect if HTML
+	// Set Content-Type and charset.
+	$phpmailer->ContentType = 'text/plain'; // TODO detect if HTML.
 
 	$phpmailer->CharSet = 'UTF-8';
 
-	if ( !empty( $attachments ) )
+	if ( ! empty( $attachments ) )
 	{
-		foreach ( $attachments as $attachment )
+		foreach ( (array) $attachments as $attachment )
 		{
 			try
 			{

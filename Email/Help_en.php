@@ -7,15 +7,16 @@
  * - Profile
  *
  * @author François Jacquet
- * 
+ *
  * @uses Heredoc syntax
  * @see  http://php.net/manual/en/language.types.string.php#language.types.string.syntax.heredoc
+ *
+ * @package Email module
  */
 
+// EMAIL ---.
+if ( User( 'PROFILE' ) === 'admin' ) :
 
-// EMAIL ---
-if ( User( 'PROFILE' ) === 'admin' )
-{
 	$help['Email/ReportCardsEmailParents.php'] = <<<HTML
 <p>
 	<i>Email Report Cards to Parents</i> allows you to generate PDF Report Cards and send them to the selected Parents email.
@@ -52,4 +53,4 @@ HTML;
 </p>
 HTML;
 
-}
+endif;
