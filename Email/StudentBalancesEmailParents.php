@@ -183,7 +183,7 @@ if ( empty( $_REQUEST['modfunc'] )
 		// Email Template Textarea.
 		$extra['extra_header_left'] .= '<tr class="st"><td>
 			<label><textarea name="inputstudentbalancesemailtext" cols="97" rows="5">' . $template . '</textarea>
-			<br /><span class="legend-gray">' . dgettext( 'Email', 'Student Balance' ) . ' - ' . _( 'Email Text' ) . '</span></label>
+			<span class="legend-gray">' . dgettext( 'Email', 'Student Balance' ) . ' - ' . _( 'Email Text' ) . '</span></label>
 			</td></tr>';
 
 		// Spacing.

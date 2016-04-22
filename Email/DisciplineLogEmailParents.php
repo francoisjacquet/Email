@@ -208,7 +208,7 @@ if ( empty( $_REQUEST['modfunc'] )
 		// Email Template Textarea.
 		$extra['extra_header_left'] .= '<tr class="st"><td>
 			<label><textarea name="inputdisciplinelogemailtext" cols="97" rows="5">' . $template . '</textarea>
-			<br /><span class="legend-gray">' . _( 'Discpline Log' ) . ' - ' . _( 'Email Text' ) . '</span></label>
+			<span class="legend-gray">' . _( 'Discpline Log' ) . ' - ' . _( 'Email Text' ) . '</span></label>
 			</td></tr>';
 
 		// Spacing.
