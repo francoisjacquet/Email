@@ -1,7 +1,7 @@
 Email module
 ============
 
-![screenshot](https://raw.githubusercontent.com/francoisjacquet/rosariosis-module-email/master/Email/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/francoisjacquet/rosariosis-module-email/master/screenshot.png)
 
 https://github.com/francoisjacquet/rosariosis-module-email
 
