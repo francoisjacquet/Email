@@ -1,9 +1,9 @@
 Email module
 ============
 
-![screenshot](https://raw.githubusercontent.com/francoisjacquet/rosariosis-module-email/master/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/francoisjacquet/Email/master/screenshot.png)
 
-https://github.com/francoisjacquet/rosariosis-module-email
+https://github.com/francoisjacquet/Email
 
 Version 1.0 - November, 2015
 
