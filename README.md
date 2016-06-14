@@ -36,8 +36,8 @@ Student Billing
 
 INSTALL
 -------
-Copy the Email/ folder and its content inside the modules/ folder of RosarioSIS.
+Copy the `Email/` folder (if named `Email-master`, rename it) and its content inside the `modules/` folder of RosarioSIS.
 
-Go to School Setup > School Configuration > Modules and click "Activate".
+Go to _School Setup > School Configuration > Modules_ and click "Activate".
 
 Requires RosarioSIS 2.8.24+
