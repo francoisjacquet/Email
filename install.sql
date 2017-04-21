@@ -17,17 +17,29 @@
  can_edit: 'Y' or null (generally null for non admins)
 *******************************************************/
 --
--- Data for Name: profile_exceptions; Type: TABLE DATA; 
+-- Data for Name: profile_exceptions; Type: TABLE DATA;
 --
 
-INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit) VALUES (
-1, 'Email/ReportCardsEmailParents.php', 'Y', 'Y');
+INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit)
+SELECT 1, 'Email/ReportCardsEmailParents.php', 'Y', 'Y'
+WHERE NOT EXISTS (SELECT profile_id
+    FROM profile_exceptions
+    WHERE modname='Email/ReportCardsEmailParents.php'
+    AND profile_id=1);
 
-INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit) VALUES (
-1, 'Email/DisciplineLogEmailParents.php', 'Y', 'Y');
+INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit)
+SELECT 1, 'Email/DisciplineLogEmailParents.php', 'Y', 'Y'
+WHERE NOT EXISTS (SELECT profile_id
+    FROM profile_exceptions
+    WHERE modname='Email/DisciplineLogEmailParents.phpp'
+    AND profile_id=1);
 
-INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit) VALUES (
-1, 'Email/StudentBalancesEmailParents.php', 'Y', 'Y');
+INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit)
+SELECT 1, 'Email/StudentBalancesEmailParents.php', 'Y', 'Y'
+WHERE NOT EXISTS (SELECT profile_id
+    FROM profile_exceptions
+    WHERE modname='Email/StudentBalancesEmailParents.php'
+    AND profile_id=1);
 
 
 
@@ -38,16 +50,33 @@ INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit) VALUES (
 -- Data for Name: templates; Type: TABLE DATA;
 --
 
-INSERT INTO templates VALUES ('Email/ReportCardsEmailParents.php', 0, 'Dear __PARENT_NAME__,
+INSERT INTO templates (modname, staff_id, template)
+SELECT 'Email/ReportCardsEmailParents.php', 0, 'Dear __PARENT_NAME__,
 
-Please find the Report Card for __FIRST_NAME__ __LAST_NAME__ attached to this email.');
+Please find the Report Card for __FIRST_NAME__ __LAST_NAME__ attached to this email.'
+WHERE NOT EXISTS (SELECT modname
+    FROM templates
+    WHERE modname='Email/ReportCardsEmailParents.php'
+    AND staff_id=0);
 
-INSERT INTO templates VALUES ('Email/DisciplineLogEmailParents.php', 0, 'Dear __PARENT_NAME__,
 
-Please find the Discipline Log for __FIRST_NAME__ __LAST_NAME__ attached to this email.');
+INSERT INTO templates (modname, staff_id, template)
+SELECT 'Email/DisciplineLogEmailParents.php', 0, 'Dear __PARENT_NAME__,
 
-INSERT INTO templates VALUES ('Email/StudentBalancesEmailParents.php', 0, 'Dear __PARENT_NAME__,
+Please find the Discipline Log for __FIRST_NAME__ __LAST_NAME__ attached to this email.'
+WHERE NOT EXISTS (SELECT modname
+    FROM templates
+    WHERE modname='Email/DisciplineLogEmailParents.php'
+    AND staff_id=0);
+
+
+INSERT INTO templates (modname, staff_id, template)
+SELECT 'Email/StudentBalancesEmailParents.php', 0, 'Dear __PARENT_NAME__,
 
 Your child, __FIRST_NAME__ __LAST_NAME__ has a Balance of:
 
-__BALANCE__');
+__BALANCE__'
+WHERE NOT EXISTS (SELECT modname
+    FROM templates
+    WHERE modname='Email/StudentBalancesEmailParents.php'
+    AND staff_id=0);
