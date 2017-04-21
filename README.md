@@ -5,7 +5,7 @@ Email module
 
 https://github.com/francoisjacquet/Email
 
-Version 1.0 - November, 2015
+Version 1.1 - April, 2017
 
 License GNU GPL v2
 
