@@ -41,6 +41,13 @@ WHERE NOT EXISTS (SELECT profile_id
     WHERE modname='Email/StudentBalancesEmailParents.php'
     AND profile_id=1);
 
+INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit)
+SELECT 1, 'Email/EmailStudents.php', 'Y', 'Y'
+WHERE NOT EXISTS (SELECT profile_id
+    FROM profile_exceptions
+    WHERE modname='Email/EmailStudents.php'
+    AND profile_id=1);
+
 
 
 /*********************************************************
@@ -79,4 +86,11 @@ __BALANCE__'
 WHERE NOT EXISTS (SELECT modname
     FROM templates
     WHERE modname='Email/StudentBalancesEmailParents.php'
+    AND staff_id=0);
+
+INSERT INTO templates (modname, staff_id, template)
+SELECT 'Email/EmailStudents.php', 0, ''
+WHERE NOT EXISTS (SELECT modname
+    FROM templates
+    WHERE modname='Email/EmailStudents.php'
     AND staff_id=0);

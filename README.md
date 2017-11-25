@@ -5,7 +5,7 @@ Email module
 
 https://github.com/francoisjacquet/Email
 
-Version 1.1 - April, 2017
+Version 2.0 - November, 2017
 
 License GNU GPL v2
 
@@ -15,16 +15,24 @@ Sponsored by Microtec Guatemala
 
 DESCRIPTION
 -----------
-This module extends the following modules:
+This additional module extends the following modules:
 
-- Grades: Lets you email Report Cards to Parents.
-- Discipline: Lets you email Discipline Log to Parents.
-- Student Billing: Lets you email Student Balances to Parents.
+- Students: Send Emails.
+- Users: Send Emails.
+- Grades: Email Report Cards to Parents.
+- Discipline: Email Discipline Log to Parents.
+- Student Billing: Email Student Balances to Parents.
 
 The email body is customizable.
 
 CONTENT
 -------
+Students
+- Send Emails
+
+Users
+- Send Emails
+
 Grades
 - Email Report Cards to Parents
 

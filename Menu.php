@@ -28,11 +28,25 @@ if ( $RosarioModules['Discipline'] ) // Verify Discipline module is activated.
 	);
 }
 
-// Add a Menu entry to the Student_Billing module
+// Add a Menu entry to the Student_Billing module.
 if ( $RosarioModules['Student_Billing'] ) // Verify Student_Billing module is activated.
 {
 	$menu['Student_Billing']['admin'] += array(
 		2 => dgettext( 'Email', 'Email' ),
 		'Email/StudentBalancesEmailParents.php' => dgettext( 'Email', 'Email Student Balances to Parents' ),
+	);
+}
+
+// Add a Menu entry to the Students module.
+if ( $RosarioModules['Students'] ) // Verify Students module is activated.
+{
+	$menu['Studens']['admin'] += array(
+		2 => dgettext( 'Email', 'Email' ),
+		'Email/Letters.php' => _( 'Send Emails' ),
+	);
+
+	$menu['Studens']['teacher'] += array(
+		2 => dgettext( 'Email', 'Email' ),
+		'Email/Letters.php' => _( 'Send Emails' ),
 	);
 }
