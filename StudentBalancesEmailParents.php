@@ -5,6 +5,17 @@
  * @package Email module
  */
 
+if ( file_exists( 'ProgramFunctions/Template.fnc.php' ) )
+{
+	// @since 3.6.
+	require_once 'ProgramFunctions/Template.fnc.php';
+}
+else
+{
+	// @deprecated.
+	require_once 'modules/Email/includes/Template.fnc.php';
+}
+
 DrawHeader( ProgramTitle() );
 
 // Send emails.
@@ -14,34 +25,7 @@ if ( isset( $_REQUEST['modfunc'] )
 {
 	if ( isset( $_POST['student'] ) )
 	{
-		// FJ add Template.
-		$template_update = DBGet( DBQuery( "SELECT 1
-			FROM TEMPLATES
-			WHERE MODNAME = '" . $_REQUEST['modname'] . "'
-			AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" ) );
-
-		// INSERT new template.
-		if ( ! $template_update )
-		{
-			DBQuery( "INSERT INTO TEMPLATES (
-					MODNAME,
-					STAFF_ID,
-					TEMPLATE
-				)
-				VALUES (
-					'" . $_REQUEST['modname'] . "',
-					'" . User( 'STAFF_ID' ) . "',
-					'" . $_REQUEST['inputstudentbalancesemailtext'] . "'
-				)" );
-		}
-		// UPDATE template.
-		else
-		{
-			DBQuery( "UPDATE TEMPLATES
-				SET TEMPLATE = '" . $_REQUEST['inputstudentbalancesemailtext'] . "'
-				WHERE MODNAME = '" . $_REQUEST['modname'] . "'
-				AND STAFF_ID = '" . User( 'STAFF_ID' ) . "'" );
-		}
+		SaveTemplate( $_REQUEST['inputstudentbalancesemailtext'] );
 
 		$message = str_replace( "''", "'", $_REQUEST['inputstudentbalancesemailtext'] );
 
@@ -173,12 +157,7 @@ if ( empty( $_REQUEST['modfunc'] )
 
 		$extra['extra_header_left'] = '<table>';
 
-		// FJ add Template.
-		$templates = DBGet( DBQuery( "SELECT TEMPLATE, STAFF_ID
-			FROM TEMPLATES WHERE MODNAME = '" . $_REQUEST['modname'] . "'
-			AND STAFF_ID IN (0,'" . User( 'STAFF_ID' ) . "')" ), array(), array( 'STAFF_ID' ) );
-
-		$template = $templates[( isset( $templates[User( 'STAFF_ID' )] ) ? User( 'STAFF_ID' ) : 0 )][1]['TEMPLATE'];
+		$template = GetTemplate();
 
 		// Email Template Textarea.
 		$extra['extra_header_left'] .= '<tr class="st"><td>
