@@ -2,18 +2,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Email module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-25 22:46+0100\n"
-"PO-Revision-Date: 2017-11-25 22:47+0100\n"
+"POT-Creation-Date: 2017-11-25 22:47+0100\n"
+"PO-Revision-Date: 2017-11-25 22:53+0100\n"
 "Last-Translator: François Jacquet <info@rosariosis.org>\n"
 "Language-Team: RosarioSIS <info@rosariosis.org>\n"
-"Language: es_ES\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: dgettext:2\n"
 "X-Poedit-Basepath: /var/www/github/rosariosis-module-email/\n"
 "X-Generator: Poedit 1.7.6\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -25,7 +25,7 @@ msgstr ""
 #: StudentBalancesEmailParents.php:119
 #, php-format
 msgid "Email not sent to: %s"
-msgstr "Email no enviado a: %s"
+msgstr "Email non envoyé à: %s"
 
 #: DisciplineLogEmailParents.php:142 ReportCardsEmailParents.php:154
 msgid "No Students were found."
@@ -33,7 +33,7 @@ msgstr ""
 
 #: DisciplineLogEmailParents.php:145
 msgid "The discpline logs have been sent."
-msgstr "Los historiales disciplinario han sido enviados."
+msgstr "Les journaux de discipline ont été envoyé."
 
 #: DisciplineLogEmailParents.php:149 EmailStudents.php:172 EmailUsers.php:120
 #: StudentBalancesEmailParents.php:128
@@ -42,7 +42,7 @@ msgstr ""
 
 #: DisciplineLogEmailParents.php:181 DisciplineLogEmailParents.php:279
 msgid "Send Log to Selected Parents"
-msgstr "Enviar el Historial a los Padres Seleccionados"
+msgstr "Envoyer le Journal aux Parents Sélectionnés"
 
 #: DisciplineLogEmailParents.php:190 ReportCardsEmailParents.php:199
 #: StudentBalancesEmailParents.php:165
@@ -95,7 +95,7 @@ msgstr ""
 #: EmailStudents.php:35
 #, php-format
 msgid "You must configure the %s to use this script."
-msgstr "Debe configurar el %s para poder usar este programa."
+msgstr "Vous devez configurer le %s pour pouvoir utiliser ce programme."
 
 #: EmailStudents.php:72 EmailUsers.php:47
 msgid ""
@@ -125,7 +125,7 @@ msgstr ""
 
 #: EmailStudents.php:188 EmailStudents.php:273
 msgid "Send Email to Selected Students"
-msgstr "Enviar Email a los Estudiantes Seleccionados"
+msgstr "Envoyer l'Email aux Élèves Sélectionnés"
 
 #: EmailStudents.php:199 EmailUsers.php:147
 msgid "Subject"
@@ -170,23 +170,23 @@ msgstr ""
 
 #: EmailUsers.php:136 EmailUsers.php:205
 msgid "Send Email to Selected Users"
-msgstr "Enviar Email a los Usuarios Seleccionados"
+msgstr "Envoyer l'Email aux Utilisateurs Sélectionnés"
 
 #: Menu.php:18
 msgid "Email Report Cards to Parents"
-msgstr "Enviar los Boletines de Calificaciones a los Padres"
+msgstr "Envoyer le le Bulletin de Notes aux Parents"
 
 #: Menu.php:27
 msgid "Email Discipline Log to Parents"
-msgstr "Enviar Historial Disciplinario a los Padres"
+msgstr "Envoyer le Journal de Discipline aux Parents"
 
 #: Menu.php:36
 msgid "Email Student Balances to Parents"
-msgstr "Enviar los Saldos Estudiante a los Padres"
+msgstr "Envoyer les Soldes des Élèves aux Parents"
 
 #: Menu.php:45 Menu.php:50 Menu.php:59 Menu.php:64
 msgid "Send Email"
-msgstr "Enviar Email"
+msgstr "Envoyer Email"
 
 #: ReportCardsEmailParents.php:87 ReportCardsEmailParents.php:199
 msgid "Report Cards"
@@ -194,7 +194,7 @@ msgstr ""
 
 #: ReportCardsEmailParents.php:151
 msgid "The report cards have been sent."
-msgstr "Los boletines de calificaciones han sido enviados."
+msgstr "Les bulletins de notes ont été envoyé."
 
 #: ReportCardsEmailParents.php:158
 msgid "You must choose at least one student and one marking period."
@@ -202,20 +202,20 @@ msgstr ""
 
 #: ReportCardsEmailParents.php:190 ReportCardsEmailParents.php:281
 msgid "Send Report Cards to Selected Parents"
-msgstr "Enviar los Boletines de Calificaciones a los Padres Seleccionados"
+msgstr "Envoyer les Bulletins de Notes aux Parents Sélectionnés"
 
 #: StudentBalancesEmailParents.php:82 StudentBalancesEmailParents.php:165
 #: StudentBalancesEmailParents.php:194
 msgid "Student Balance"
-msgstr "Saldo Estudiante"
+msgstr "Solde Élève"
 
 #: StudentBalancesEmailParents.php:124
 msgid "The student balances have been sent."
-msgstr "Los saldos estudiante han sido enviados."
+msgstr "Les soldes élève ont été envoyé."
 
 #: StudentBalancesEmailParents.php:156 StudentBalancesEmailParents.php:257
 msgid "Send Balances to Selected Parents"
-msgstr "Enviar los Saldos a los Padres Seleccionados"
+msgstr "Envoyer les Soldes aux Parents Sélectionnés"
 
 #: StudentBalancesEmailParents.php:239
 msgid "Balance"
