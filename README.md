@@ -17,8 +17,8 @@ DESCRIPTION
 -----------
 This additional module extends the following modules:
 
-- Students: Send Emails.
-- Users: Send Emails.
+- Students: Send Email.
+- Users: Send Email.
 - Grades: Email Report Cards to Parents.
 - Discipline: Email Discipline Log to Parents.
 - Student Billing: Email Student Balances to Parents.

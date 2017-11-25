@@ -31,7 +31,7 @@ INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit)
 SELECT 1, 'Email/DisciplineLogEmailParents.php', 'Y', 'Y'
 WHERE NOT EXISTS (SELECT profile_id
     FROM profile_exceptions
-    WHERE modname='Email/DisciplineLogEmailParents.phpp'
+    WHERE modname='Email/DisciplineLogEmailParents.php'
     AND profile_id=1);
 
 INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit)
@@ -48,6 +48,12 @@ WHERE NOT EXISTS (SELECT profile_id
     WHERE modname='Email/EmailStudents.php'
     AND profile_id=1);
 
+INSERT INTO profile_exceptions (profile_id, modname, can_use, can_edit)
+SELECT 1, 'Email/EmailUsers.php', 'Y', 'Y'
+WHERE NOT EXISTS (SELECT profile_id
+    FROM profile_exceptions
+    WHERE modname='Email/EmailUsers.php'
+    AND profile_id=1);
 
 
 /*********************************************************
@@ -93,4 +99,11 @@ SELECT 'Email/EmailStudents.php', 0, ''
 WHERE NOT EXISTS (SELECT modname
     FROM templates
     WHERE modname='Email/EmailStudents.php'
+    AND staff_id=0);
+
+INSERT INTO templates (modname, staff_id, template)
+SELECT 'Email/EmailUsers.php', 0, ''
+WHERE NOT EXISTS (SELECT modname
+    FROM templates
+    WHERE modname='Email/EmailUsers.php'
     AND staff_id=0);
