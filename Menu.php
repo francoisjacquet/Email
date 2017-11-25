@@ -40,13 +40,27 @@ if ( $RosarioModules['Student_Billing'] ) // Verify Student_Billing module is ac
 // Add a Menu entry to the Students module.
 if ( $RosarioModules['Students'] ) // Verify Students module is activated.
 {
-	$menu['Studens']['admin'] += array(
-		2 => dgettext( 'Email', 'Email' ),
-		'Email/Letters.php' => _( 'Send Emails' ),
+	$menu['Students']['admin'] += array(
+		33 => dgettext( 'Email', 'Email' ),
+		'Email/EmailStudents.php' => dgettext( 'Email', 'Send Email' ),
 	);
 
-	$menu['Studens']['teacher'] += array(
-		2 => dgettext( 'Email', 'Email' ),
-		'Email/Letters.php' => _( 'Send Emails' ),
+	$menu['Students']['teacher'] += array(
+		33 => dgettext( 'Email', 'Email' ),
+		'Email/EmailStudents.php' => dgettext( 'Email', 'Send Email' ),
+	);
+}
+
+// Add a Menu entry to the Users module.
+if ( $RosarioModules['Users'] ) // Verify Users module is activated.
+{
+	$menu['Users']['admin'] += array(
+		33 => dgettext( 'Email', 'Email' ),
+		'Email/EmailUsers.php' => _( 'Send Email' ),
+	);
+
+	$menu['Users']['teacher'] += array(
+		33 => dgettext( 'Email', 'Email' ),
+		'Email/EmailUsers.php' => _( 'Send Email' ),
 	);
 }
