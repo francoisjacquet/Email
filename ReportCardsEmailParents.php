@@ -6,6 +6,7 @@
  */
 
 require_once 'modules/Grades/includes/ReportCards.fnc.php';
+require_once 'ProgramFunctions/SendEmail.fnc.php';
 
 if ( file_exists( 'ProgramFunctions/Template.fnc.php' ) )
 {
@@ -39,10 +40,6 @@ if ( isset( $_REQUEST['modfunc'] )
 
 		if ( $report_cards )
 		{
-
-			// FJ add SendEmailAttachment function.
-			require_once 'modules/Email/includes/SendEmailAttachment.fnc.php';
-
 			$st_list = '\'' . implode( '\',\'', $_REQUEST['student'] ) . '\'';
 
 			// SELECT Staff details.
@@ -76,12 +73,11 @@ if ( isset( $_REQUEST['modfunc'] )
 			{
 				$to = $student['PARENT_EMAIL'];
 
-				$from = $cc = null;
+				$reply_to = $cc = null;
 
-				// FJ send email from rosariosis@[domain] or Staff email.
 				if ( filter_var( User( 'EMAIL' ), FILTER_VALIDATE_EMAIL ) )
 				{
-					$from = User( 'NAME' ) . ' <' . User( 'EMAIL' ) . '>';
+					$reply_to = User( 'NAME' ) . ' <' . User( 'EMAIL' ) . '>';
 				}
 
 				$subject = _( 'Report Cards' ) .
@@ -118,11 +114,11 @@ if ( isset( $_REQUEST['modfunc'] )
 					$pdf_name = $subject . '.pdf';
 
 					// Send Email.
-					$result = SendEmailAttachment(
+					$result = SendEmail(
 						$to,
 						$subject,
 						$msg,
-						$from,
+						$reply_to,
 						$cc,
 						array( array( $pdf_file, $pdf_name ) )
 					);

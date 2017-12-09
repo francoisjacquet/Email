@@ -5,6 +5,8 @@
  * @package Email module
  */
 
+require_once 'ProgramFunctions/SendEmail.fnc.php';
+
 if ( file_exists( 'ProgramFunctions/Template.fnc.php' ) )
 {
 	// @since 3.6.
@@ -28,9 +30,6 @@ if ( isset( $_REQUEST['modfunc'] )
 		SaveTemplate( $_REQUEST['inputstudentbalancesemailtext'] );
 
 		$message = str_replace( "''", "'", $_REQUEST['inputstudentbalancesemailtext'] );
-
-		// FJ add SendEmail function.
-		require_once 'ProgramFunctions/SendEmail.fnc.php';
 
 		$st_list = '\'' . implode( '\',\'', $_REQUEST['student'] ) . '\'';
 
@@ -72,11 +71,11 @@ if ( isset( $_REQUEST['modfunc'] )
 		{
 			$to = $student['PARENT_EMAIL'];
 
-			$from = null;
+			$reply_to = null;
 
 			if ( filter_var( User( 'EMAIL' ), FILTER_VALIDATE_EMAIL ) )
 			{
-				$from = User( 'NAME' ) . ' <' . User( 'EMAIL' ) . '>';
+				$reply_to = User( 'NAME' ) . ' <' . User( 'EMAIL' ) . '>';
 			}
 
 			$subject = dgettext( 'Email', 'Student Balance' ) .
@@ -101,8 +100,7 @@ if ( isset( $_REQUEST['modfunc'] )
 				$message
 			);
 
-			// FJ send email from rosariosis@[domain] or Staff email.
-			$result = SendEmail( $to, $subject, $msg, $from );
+			$result = SendEmail( $to, $subject, $msg, $reply_to );
 
 			if ( ! $result )
 			{
