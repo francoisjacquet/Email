@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Email module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-25 22:46+0100\n"
-"PO-Revision-Date: 2017-11-25 22:47+0100\n"
+"POT-Creation-Date: 2017-12-09 18:21+0100\n"
+"PO-Revision-Date: 2017-12-09 18:22+0100\n"
 "Last-Translator: François Jacquet <info@rosariosis.org>\n"
 "Language-Team: RosarioSIS <info@rosariosis.org>\n"
 "Language: es_ES\n"
@@ -17,74 +17,74 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: DisciplineLogEmailParents.php:81 DisciplineLogEmailParents.php:190
+#: DisciplineLogEmailParents.php:78 DisciplineLogEmailParents.php:187
 msgid "Discpline Log"
 msgstr ""
 
-#: DisciplineLogEmailParents.php:135 ReportCardsEmailParents.php:146
-#: StudentBalancesEmailParents.php:119
+#: DisciplineLogEmailParents.php:132 ReportCardsEmailParents.php:142
+#: StudentBalancesEmailParents.php:117
 #, php-format
 msgid "Email not sent to: %s"
 msgstr "Email no enviado a: %s"
 
-#: DisciplineLogEmailParents.php:142 ReportCardsEmailParents.php:154
+#: DisciplineLogEmailParents.php:139 ReportCardsEmailParents.php:150
 msgid "No Students were found."
 msgstr ""
 
-#: DisciplineLogEmailParents.php:145
+#: DisciplineLogEmailParents.php:142
 msgid "The discpline logs have been sent."
 msgstr "Los historiales disciplinario han sido enviados."
 
-#: DisciplineLogEmailParents.php:149 EmailStudents.php:172 EmailUsers.php:120
-#: StudentBalancesEmailParents.php:128
+#: DisciplineLogEmailParents.php:146 EmailStudents.php:171 EmailUsers.php:119
+#: StudentBalancesEmailParents.php:126
 msgid "You must choose at least one student."
 msgstr ""
 
-#: DisciplineLogEmailParents.php:181 DisciplineLogEmailParents.php:279
+#: DisciplineLogEmailParents.php:178 DisciplineLogEmailParents.php:276
 msgid "Send Log to Selected Parents"
 msgstr "Enviar el Historial a los Padres Seleccionados"
 
-#: DisciplineLogEmailParents.php:190 ReportCardsEmailParents.php:199
-#: StudentBalancesEmailParents.php:165
+#: DisciplineLogEmailParents.php:187 ReportCardsEmailParents.php:195
+#: StudentBalancesEmailParents.php:163
 msgid "Email Text"
 msgstr ""
 
-#: DisciplineLogEmailParents.php:201 DisciplineLogEmailParents.php:262
-#: ReportCardsEmailParents.php:210 ReportCardsEmailParents.php:264
-#: StudentBalancesEmailParents.php:176 StudentBalancesEmailParents.php:240
+#: DisciplineLogEmailParents.php:198 DisciplineLogEmailParents.php:259
+#: ReportCardsEmailParents.php:206 ReportCardsEmailParents.php:260
+#: StudentBalancesEmailParents.php:174 StudentBalancesEmailParents.php:238
 msgid "Parent Name"
 msgstr ""
 
-#: DisciplineLogEmailParents.php:207 EmailStudents.php:217 EmailUsers.php:165
-#: ReportCardsEmailParents.php:216 StudentBalancesEmailParents.php:182
+#: DisciplineLogEmailParents.php:204 EmailStudents.php:216 EmailUsers.php:164
+#: ReportCardsEmailParents.php:212 StudentBalancesEmailParents.php:180
 msgid "First Name"
 msgstr ""
 
-#: DisciplineLogEmailParents.php:210 EmailStudents.php:218 EmailUsers.php:166
-#: ReportCardsEmailParents.php:219 StudentBalancesEmailParents.php:185
+#: DisciplineLogEmailParents.php:207 EmailStudents.php:217 EmailUsers.php:165
+#: ReportCardsEmailParents.php:215 StudentBalancesEmailParents.php:183
 msgid "Last Name"
 msgstr ""
 
-#: DisciplineLogEmailParents.php:215 EmailStudents.php:223
-#: ReportCardsEmailParents.php:224 StudentBalancesEmailParents.php:190
+#: DisciplineLogEmailParents.php:212 EmailStudents.php:222
+#: ReportCardsEmailParents.php:220 StudentBalancesEmailParents.php:188
 msgid "School"
 msgstr ""
 
-#: DisciplineLogEmailParents.php:219 EmailStudents.php:214 EmailUsers.php:162
-#: ReportCardsEmailParents.php:228 StudentBalancesEmailParents.php:197
+#: DisciplineLogEmailParents.php:216 EmailStudents.php:213 EmailUsers.php:161
+#: ReportCardsEmailParents.php:224 StudentBalancesEmailParents.php:195
 msgid "Substitutions"
 msgstr ""
 
-#: DisciplineLogEmailParents.php:261
+#: DisciplineLogEmailParents.php:258
 msgid "Number of Referrals"
 msgstr ""
 
-#: DisciplineLogEmailParents.php:263 EmailStudents.php:164
-#: EmailStudents.php:210 EmailStudents.php:245 EmailStudents.php:258
-#: EmailUsers.php:112 EmailUsers.php:158 EmailUsers.php:177 EmailUsers.php:190
+#: DisciplineLogEmailParents.php:260 EmailStudents.php:163
+#: EmailStudents.php:209 EmailStudents.php:244 EmailStudents.php:257
+#: EmailUsers.php:111 EmailUsers.php:157 EmailUsers.php:176 EmailUsers.php:189
 #: Menu.php:17 Menu.php:26 Menu.php:35 Menu.php:44 Menu.php:49 Menu.php:58
-#: Menu.php:63 ReportCardsEmailParents.php:265
-#: StudentBalancesEmailParents.php:241
+#: Menu.php:63 ReportCardsEmailParents.php:261
+#: StudentBalancesEmailParents.php:239
 msgid "Email"
 msgstr ""
 
@@ -103,72 +103,72 @@ msgid ""
 "this script."
 msgstr ""
 
-#: EmailStudents.php:146 EmailUsers.php:94
+#: EmailStudents.php:145 EmailUsers.php:93
 msgid "Success"
 msgstr ""
 
-#: EmailStudents.php:146 EmailUsers.php:94
+#: EmailStudents.php:145 EmailUsers.php:93
 msgid "Fail"
 msgstr ""
 
-#: EmailStudents.php:155 EmailUsers.php:103
+#: EmailStudents.php:154 EmailUsers.php:102
 msgid "Student"
 msgstr ""
 
-#: EmailStudents.php:160 EmailUsers.php:108
+#: EmailStudents.php:159 EmailUsers.php:107
 msgid "Username"
 msgstr ""
 
-#: EmailStudents.php:165 EmailUsers.php:113
+#: EmailStudents.php:164 EmailUsers.php:112
 msgid "Result"
 msgstr ""
 
-#: EmailStudents.php:188 EmailStudents.php:273
+#: EmailStudents.php:187 EmailStudents.php:272
 msgid "Send Email to Selected Students"
 msgstr "Enviar Email a los Estudiantes Seleccionados"
 
-#: EmailStudents.php:199 EmailUsers.php:147
+#: EmailStudents.php:198 EmailUsers.php:146
 msgid "Subject"
-msgstr ""
+msgstr "Asunto"
 
-#: EmailStudents.php:215 EmailUsers.php:163
+#: EmailStudents.php:214 EmailUsers.php:162
 msgid "Last, First M"
 msgstr ""
 
-#: EmailStudents.php:220 EmailUsers.php:168
+#: EmailStudents.php:219 EmailUsers.php:167
 msgid "Middle Name"
 msgstr ""
 
-#: EmailStudents.php:221 EmailUsers.php:169
+#: EmailStudents.php:220 EmailUsers.php:168
 #, php-format
 msgid "%s ID"
 msgstr ""
 
-#: EmailStudents.php:224
+#: EmailStudents.php:223
 msgid "Grade Level"
 msgstr ""
 
-#: EmailStudents.php:229
+#: EmailStudents.php:228
 msgid "Attendance Teacher"
 msgstr ""
 
-#: EmailStudents.php:230
+#: EmailStudents.php:229
 msgid "Attendance Room"
 msgstr ""
 
-#: EmailStudents.php:234
+#: EmailStudents.php:233
 msgid "Your Name"
 msgstr ""
 
-#: EmailStudents.php:235
+#: EmailStudents.php:234
 msgid "Your Room"
 msgstr ""
 
-#: EmailStudents.php:241 EmailUsers.php:173
+#: EmailStudents.php:240 EmailUsers.php:172
 msgid "Test Mode"
 msgstr ""
 
-#: EmailUsers.php:136 EmailUsers.php:205
+#: EmailUsers.php:135 EmailUsers.php:204
 msgid "Send Email to Selected Users"
 msgstr "Enviar Email a los Usuarios Seleccionados"
 
@@ -188,36 +188,36 @@ msgstr "Enviar los Saldos Estudiante a los Padres"
 msgid "Send Email"
 msgstr "Enviar Email"
 
-#: ReportCardsEmailParents.php:87 ReportCardsEmailParents.php:199
+#: ReportCardsEmailParents.php:83 ReportCardsEmailParents.php:195
 msgid "Report Cards"
 msgstr ""
 
-#: ReportCardsEmailParents.php:151
+#: ReportCardsEmailParents.php:147
 msgid "The report cards have been sent."
 msgstr "Los boletines de calificaciones han sido enviados."
 
-#: ReportCardsEmailParents.php:158
+#: ReportCardsEmailParents.php:154
 msgid "You must choose at least one student and one marking period."
 msgstr ""
 
-#: ReportCardsEmailParents.php:190 ReportCardsEmailParents.php:281
+#: ReportCardsEmailParents.php:186 ReportCardsEmailParents.php:277
 msgid "Send Report Cards to Selected Parents"
 msgstr "Enviar los Boletines de Calificaciones a los Padres Seleccionados"
 
-#: StudentBalancesEmailParents.php:82 StudentBalancesEmailParents.php:165
-#: StudentBalancesEmailParents.php:194
+#: StudentBalancesEmailParents.php:81 StudentBalancesEmailParents.php:163
+#: StudentBalancesEmailParents.php:192
 msgid "Student Balance"
 msgstr "Saldo Estudiante"
 
-#: StudentBalancesEmailParents.php:124
+#: StudentBalancesEmailParents.php:122
 msgid "The student balances have been sent."
 msgstr "Los saldos estudiante han sido enviados."
 
-#: StudentBalancesEmailParents.php:156 StudentBalancesEmailParents.php:257
+#: StudentBalancesEmailParents.php:154 StudentBalancesEmailParents.php:255
 msgid "Send Balances to Selected Parents"
 msgstr "Enviar los Saldos a los Padres Seleccionados"
 
-#: StudentBalancesEmailParents.php:239
+#: StudentBalancesEmailParents.php:237
 msgid "Balance"
 msgstr ""
 
